@@ -24,7 +24,7 @@ by freezing the previous layers and add our own final linear + softmax layer to 
 
 3. Gradient w.r.t Input
 
-Results:
+#### Results:
 
 ![image](images/result.png)
 
