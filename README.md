@@ -22,6 +22,7 @@ However the diffusion model is trained on the
 ### Structure
 
 - **Finetuning**: `/pipeline/facenet_finetuning.ipynb` : This notebook does fine-tuning of facenet over the celeb-A dataset. The facenet model available publicly has been trained over the VGGFace2 model and the CASIA-webface model. Since our diffusion models have been trained on celeb-A dataset, we finetuned the model over celeb-A dataset. Since we ran this code as a script on GCP, there are no inline outputs.
+- **Data Preprocessing**`/pipeline/Data Processing.ipynb` : This notebook generates the training & validation splits of the celeb-A dataset. The training and the validation splits of the original dataset contain images from mutually exclusive classes. This setting was not conducive to finetuning our facenet model, so we merged the two splits of the dataset and computed our own splits in a (80:20 fashion) through the code in this notebook.
 
 - **Generation code**: The `pipeline` folder contains the scripts which loads a validation data loader and generates masks for the input images. For each of the input image and mask, we generate a privacy preserving face output using the stable diffusion pipeline.
   - `generate_with_random_masks.py`: Generates masks using random patching and generates images using stable diffusion
