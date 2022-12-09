@@ -1,0 +1,12 @@
+diffusers==0.6.0
+transformers
+ftfy
+gradio
+git+https://github.com/huggingface/diffusers.git
+patchify
+gdown
+facenet-pytorch
+torchvision
+torchaudio
+natsort
+torchmetrics
