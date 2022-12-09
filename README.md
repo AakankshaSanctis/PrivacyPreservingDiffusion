@@ -17,7 +17,7 @@ However the diffusion model is trained on the
 
 #### Finding Regions to Mask
 
-#### Diffusion Models for Inpainting
+#### Diffusion Models for In-painting
 
 ### Structure
 
