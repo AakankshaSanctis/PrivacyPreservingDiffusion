@@ -16,6 +16,8 @@ other downstream tasks as good enough by sharing qualitative results.
 However the diffusion model is trained on the Celeb-A dataset. Therefore we extract the feature vectors
 by freezing the previous layers and add our own final linear + softmax layer to finetune the model on the celeb-A dataset.
 
+#### [Finetuned Model ](https://drive.google.com/file/d/1WpB3vZ_L6ZctpfTAI4PAPJoiIvCk5CAP/view?usp=share_link)
+
 #### Finding Regions to Mask
 
 1. Random Masking
