@@ -1,2 +1,1 @@
-# PrivacyPreservingDiffusion
-A privacy preserving mechanism for human faces using intelligent masking and inpainting with stable diffusion
+# Seeing is not believing! Privacy preservation using intelligent masking and inpainting using stable diffusion
