@@ -1,4 +1,4 @@
-# Seeing is not believing! 
+# Seeing Is Not Believing! 
 ## Privacy preservation using intelligent masking and inpainting using stable diffusion
 
 ### Structure
