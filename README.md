@@ -13,11 +13,22 @@ other downstream tasks as good enough by sharing qualitative results.
 #### Fine-tuning FaceNet
 
 [FaceNet](https://github.com/timesler/facenet-pytorch) models available publicly are trained on the VGGFace2 and CASIA-webface datasets.
-However the diffusion model is trained on the 
+However the diffusion model is trained on the Celeb-A dataset. Therefore we extract the feature vectors
+by freezing the previous layers and add our own final linear + softmax layer to finetune the model on the celeb-A dataset.
 
 #### Finding Regions to Mask
 
-#### Diffusion Models for Inpainting
+1. Random Masking
+
+2. GradCAM
+
+3. Gradient w.r.t Input
+
+Results:
+
+![image](images/result.png)
+
+#### Diffusion Models for In-painting
 
 ### Structure
 
