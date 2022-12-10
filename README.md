@@ -45,13 +45,13 @@ the face which are the primary identifiers of the person, we
 treat this masking strategy as our baseline
 
 ##### GradCAM
-In face recognition, we expect the model to give similar feature representations to faces of the same person, and different representations to faces of different people. We start off by picking random images 10177 classes and computing their target embeddings - similar to figure \ref{fig:gradcam_example}. To compute the masks of the query images used while validation, we compute the cosine similarity of the latent vector that the model generates with respect to the target embeddings, and generate a gradient-based heatmap image using GradCAM. From this heatmap, we pick the pixels with the most salient gradients and to be a part of our mask to provide to the inpainter.
+In face recognition, we expect the model to give similar feature representations to faces of the same person, and different representations to faces of different people. We start off by picking random images 10177 classes and computing their target embeddings. To compute the masks of the query images used while validation, we compute the cosine similarity of the latent vector that the model generates with respect to the target embeddings, and generate a gradient-based heatmap image using GradCAM. From this heatmap, we pick the pixels with the most salient gradients and to be a part of our mask to provide to the inpainter.
 
 
 ##### Gradient w.r.t Input
 We use the gradients with respect to input obtained by inputting the sample images through the face recognition model. The gradients guide the direction where we should do gradient ascent in order to change the model's decision, thereby explicitly forcing the face recognition model to fail.
 
-Our approach is similar to FGSM. In our experiments, we mask the top 25\% absolute valued gradients as those regions where model pays the most attention. A sample plot showing values of gradient with respect to input for a random sample through our model is shown in figure \ref{fig:grad}. Since we get the gradients in all three RGB channels, the gradient map is accordingly colored.
+Our approach is similar to FGSM. In our experiments, we mask the top 25\% absolute valued gradients as those regions where model pays the most attention. A sample plot showing values of gradient with respect to input for a random sample through our model. Since we get the gradients in all three RGB channels, the gradient map is accordingly colored.
 
 #### Results:
 
