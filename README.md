@@ -1,14 +1,27 @@
 # Seeing Is Not Believing! 
 ## Privacy preservation using intelligent masking and inpainting using stable diffusion
 
-### Description
+Models get exposed to a large amount of data to solve
+tasks during the training process. This creates a need for
+people to be confident in sharing data. However, data that
+contains private information should not be accessible to any
+party apart from the owner. In this project, we develop a
+novel solution which can be applied to vision based tasks
+for preserving privacy whilst ensuring that non-private in-
+formation is not lost for accomplishing other downstream
+tasks. We experiment with various masking techniques to
+adversarially create masks and identify salient private fea-
+tures. We further inpaint the masked regions to create non-
+private representations of the input image using latent dif-
+fusion models.
 
-Through this project, we wanted to preserve privacy whilst ensuring that non private information
-is preserved. 
-
-We try three methods, two of which are novel to the best of our knowledge for masking
-private information. We use face recognition task as our privacy task and show performance on 
-other downstream tasks as good enough by sharing qualitative results.
+![DLforCV](https://user-images.githubusercontent.com/29446732/206822557-0a27a9cb-98b8-4c09-8fe7-7e4435ffd3b5.jpg)
+#### Installation Guide
+To install all the dependencies required to run the generation pipeline, create a python environment and install all the requirements
+```
+conda create --name myenv
+pip install -r requirements.txt
+```
 
 #### Fine-tuning FaceNet
 
@@ -20,11 +33,25 @@ by freezing the previous layers and add our own final linear + softmax layer to 
 
 #### Finding Regions to Mask
 
-1. Random Masking
+##### Random Masking
+Inspired by the masking methology of masked autoencoders
+and masked language models, we divide the input
+images into grids of a specific patch size and randomly
+mask 75% of the patches. The patches which are located
+in the center are sampled with a higher probability than the
+edges because our faces are centered as shown in Figure 4.
+Since we are not intelligently sampling important regions of
+the face which are the primary identifiers of the person, we
+treat this masking strategy as our baseline
 
-2. GradCAM
+##### GradCAM
+In face recognition, we expect the model to give similar feature representations to faces of the same person, and different representations to faces of different people. We start off by picking random images 10177 classes and computing their target embeddings - similar to figure \ref{fig:gradcam_example}. To compute the masks of the query images used while validation, we compute the cosine similarity of the latent vector that the model generates with respect to the target embeddings, and generate a gradient-based heatmap image using GradCAM. From this heatmap, we pick the pixels with the most salient gradients and to be a part of our mask to provide to the inpainter.
 
-3. Gradient w.r.t Input
+
+##### Gradient w.r.t Input
+We use the gradients with respect to input obtained by inputting the sample images through the face recognition model. The gradients guide the direction where we should do gradient ascent in order to change the model's decision, thereby explicitly forcing the face recognition model to fail.
+
+Our approach is similar to FGSM. In our experiments, we mask the top 25\% absolute valued gradients as those regions where model pays the most attention. A sample plot showing values of gradient with respect to input for a random sample through our model is shown in figure \ref{fig:grad}. Since we get the gradients in all three RGB channels, the gradient map is accordingly colored.
 
 #### Results:
 
@@ -64,3 +91,15 @@ by freezing the previous layers and add our own final linear + softmax layer to 
 ![image](images/6.png)
 
 
+
+### Some sample results
+<img width="1222" alt="Screenshot 2022-12-09 at 7 02 58 PM" src="https://user-images.githubusercontent.com/29446732/206823054-760962ed-1bc5-42c5-9cd2-5c31f4d36170.png">
+The first image is the original image of the person, the second image is created using random patch masking, the third image is created using GradCAM masking and the fourth image is created using gradient based saliency masking. The image generation for each type of masking is created using stable diffusion inpainting model
+
+
+
+
+
+### Acknowledgments
+- [FaceNet](https://github.com/davidsandberg/facenet): Face recognition model with publicly available weights and finetuned on CelebA dataset
+- [Stable diffusion Inpainting](https://huggingface.co/runwayml/stable-diffusion-inpainting): Publicly available latent diffusion model for image inpainting
